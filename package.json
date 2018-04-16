@@ -1,0 +1,18 @@
+{
+  "name": "dictionary",
+  "version": "1.0.0",
+  "description": "My dictionary app",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.3",
+    "nano": "^6.4.3",
+    "nano-promises": "^1.2.0",
+    "nodemon": "^1.17.2"
+  }
+}
