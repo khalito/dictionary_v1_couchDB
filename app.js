@@ -22,10 +22,9 @@ app.get('/all', function (request, response) {
         // This will make sure every promisses have been done before calling then
         Promise.all(promisses).then(function (data) {
             var listOfFruits = [];
-            console.log(data);
             data.forEach(function (item) {
                 if (item.name) {
-                    listOfFruits.push(item.name);
+                    listOfFruits.push(item.name + " (" + item.colour + ") ");
                     console.log(item.name);
                 };
             })
@@ -40,8 +39,14 @@ app.get('/all', function (request, response) {
 
 app.get('/search', function (request, response) {
     var index = `
-    <form action="http://localhost:3000/search/result">
-        <input type="text" name="q" autofocus>
+    <label for="nameSearch">Search a color by the name of a fruit</label>
+    <form action="http://localhost:3000/search/name/result">
+        <input type="text" name="name" id="nameSearch">
+        <input type="submit">
+    </form>
+    <label for="colorSearch">Search a name by the color of a fruit</label>
+    <form action="http://localhost:3000/search/color/result">
+        <input type="text" name="color" id="colorSearch">
         <input type="submit">
     </form>
     <p><a href="http://localhost:3000/all">See all fruits</a></p>
@@ -49,18 +54,40 @@ app.get('/search', function (request, response) {
     response.send(index);
 })
 
-app.get('/search/result', function (request, response) {    
-    //response.send('<p>You searched for: </p>' + request.query["q"]);
+app.get('/search/name/result', function (request, response) {    
+    let search = '<p>You searched for: </p>' + request.query["name"] + '<br>';
+    let result = '<p>The result is: </p>';
+    let back = '<p><a href="http://localhost:3000/search">Back to search</a></p>';
+    let sorry = '<p>Sorry, this term is not in the database !</p>';
+    let query = request.query['name'];
+
     Promise.promisifyAll(fruits);
+    fruits.viewAsync('test', 'color', {'key' : query}).then(function(doc) {
+        response.send(search + result + doc.rows[0]['value'] + back);
+    }).catch(TypeError, function(err) {
+        response.send(search + result + sorry + back);
+        console.log("Type not found");
+    }).catch(function(err){
+        response.send(search + result + sorry + back);
+        console.log(err);
+    });
+})
 
-    let query = request.query['q'];
-    
-    fruits.getAsync(query).then(function(doc) {
+app.get('/search/color/result', function (request, response) {    
+    let search = '<p>You searched for: </p>' + request.query["color"] + '<br>';
+    let result = '<p>The result is: </p>';
+    let back = '<p><a href="http://localhost:3000/search">Back to search</a></p>';
+    let sorry = '<p>Sorry, this term is not in the database !</p>';
+    let query = request.query['color'];
 
-        response.send(doc.colour + '<p><a href="http://localhost:3000/search">Back to search</a></p>');
-    
-    }).catch(function(err) {
-        response.send('<p>Sorry, could not find anything.</p><p><a href="http://localhost:3000/search">Back to search</a></p>');
+    Promise.promisifyAll(fruits);
+    fruits.viewAsync('test', 'name', {'key' : query}).then(function(doc) {
+        response.send(search + result + doc.rows[0]['value'] + back);
+    }).catch(TypeError, function(err) {
+        response.send(search + result + sorry + back);
+        console.log("Type not found");
+    }).catch(function(err){
+        response.send(search + result + sorry + back);
         console.log(err);
     });
 })
