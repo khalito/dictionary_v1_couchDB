@@ -10,7 +10,7 @@ nano.db.list(function (err, body) {
 //	console.log("datbases: " + body)
 });
 
-app.get('/', function (request, response) {
+app.get('/all', function (request, response) {
     Promise.promisifyAll(fruits);
     fruits.listAsync().then(function (body) {
         var promisses = [];
@@ -29,12 +29,41 @@ app.get('/', function (request, response) {
                     console.log(item.name);
                 };
             })
-            response.send(listOfFruits);
+            response.send(listOfFruits + '<p><a href="http://localhost:3000/search">Back to search</a></p>');
         });
     }).catch(function(err){
 
     });
 });
+
+
+
+app.get('/search', function (request, response) {
+    var index = `
+    <form action="http://localhost:3000/search/result">
+        <input type="text" name="q" autofocus>
+        <input type="submit">
+    </form>
+    <p><a href="http://localhost:3000/all">See all fruits</a></p>
+    `
+    response.send(index);
+})
+
+app.get('/search/result', function (request, response) {    
+    //response.send('<p>You searched for: </p>' + request.query["q"]);
+    Promise.promisifyAll(fruits);
+
+    let query = request.query['q'];
+    
+    fruits.getAsync(query).then(function(doc) {
+
+        response.send(doc.colour + '<p><a href="http://localhost:3000/search">Back to search</a></p>');
+    
+    }).catch(function(err) {
+        response.send('<p>Sorry, could not find anything.</p><p><a href="http://localhost:3000/search">Back to search</a></p>');
+        console.log(err);
+    });
+})
 
 
 var server = app.listen(3000, function () {

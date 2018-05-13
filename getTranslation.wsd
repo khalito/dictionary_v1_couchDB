@@ -1,0 +1,26 @@
+@startuml
+actor User as user
+boundary "Search front" as sf
+control "Search back" as sb
+database "Dictionary" as db
+
+activate user
+user -> sf : Search for translation of word
+
+activate sf
+sf -> sb : getTranslation(../search?query=word)
+
+activate sb
+
+sb -> db : getDbEntry(word)
+
+activate db
+db --> sb : returnEntry(JSON)
+deactivate db
+
+sb -> sb : fillTemplate(pageTemplate,JSON)
+sb --> sf : returnTemplate(template)
+deactivate sb
+sf --> user : respond(page)
+deactivate sf
+@enduml
