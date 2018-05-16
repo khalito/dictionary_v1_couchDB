@@ -1,14 +1,13 @@
-var express = require('express');
-var Promise = require('bluebird');
-var nano = require('nano')('http://localhost:5984');
-var fruits = nano.db.use("fruits");
+const express = require('express');
+const Promise = require('bluebird');
+const nano = require('nano')('http://localhost:5984');
+const fruits = nano.db.use("fruits");
+const app = express();
+const path = require('path');
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
 
-var app = express();
 
-nano.db.list(function (err, body) {
-    // body is an array
-//	console.log("datbases: " + body)
-});
 
 app.get('/all', function (request, response) {
     Promise.promisifyAll(fruits);
@@ -33,8 +32,7 @@ app.get('/all', function (request, response) {
     }).catch(function(err){
 
     });
-});
-
+})
 
 
 app.get('/search', function (request, response) {
@@ -47,6 +45,11 @@ app.get('/search', function (request, response) {
     <label for="colorSearch">Search a name by the color of a fruit</label>
     <form action="http://localhost:3000/search/color/result">
         <input type="text" name="color" id="colorSearch">
+        <input type="submit">
+    </form>
+    <label for="colorSearchEJS">EJS search by color</label>
+    <form action="http://localhost:3000/search/color/resultEJS">
+        <input type="text" name="color" id="colorSearchEJS">
         <input type="submit">
     </form>
     <p><a href="http://localhost:3000/all">See all fruits</a></p>
@@ -71,6 +74,18 @@ app.get('/search/name/result', function (request, response) {
         response.send(search + result + sorry + back);
         console.log(err);
     });
+})
+
+app.get('/search/color/resultEJS', function(request, response) {
+    let query = request.query['color'];
+    Promise.promisifyAll(fruits);
+    
+    fruits.viewAsync('test', 'name', {'key' : query}).then(function(doc){
+        console.log(doc);
+        response.render('result', {
+            'color' : doc.rows[0]['value']
+        });
+    })
 })
 
 app.get('/search/color/result', function (request, response) {    
