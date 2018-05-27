@@ -1,1 +1,15 @@
-need to replace index.html
+<h1>You searched for: <i><%= searchedWord %></i></h1>
+
+<h1>Results</h1>
+
+<ul>
+    <% results.forEach(function(word){ %>
+        <li><%= word %></li>
+    <% }) %>
+</ul>
+
+
+
+<% if (results == false) { %>
+    <p>Sorry, nothing matched your search.</p>
+<% } %>
