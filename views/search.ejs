@@ -1,24 +1,46 @@
-<!-- <label for="nameSearch">Search a color by the name of a fruit</label>
-<form action="http://localhost:3000/search/name/result">
-    <input type="text" name="name" id="nameSearch">
-    <input type="submit">
-</form>
-<label for="colorSearch">Search a name by the color of a fruit</label>
-<form action="http://localhost:3000/search/color/result">
-    <input type="text" name="color" id="colorSearch">
-    <input type="submit">
-</form> -->
-<label for="search">Arabic > English</label>
-<form action="http://localhost:3000/search/result">
-    <input type="text" name="searchedWord" id="search" autofocus>
-    <input type="submit" value="Yalla !">
-</form>
-<p><a href="http://localhost:3000/all">See all the words we have !</a></p>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Dictionary</title>
+    <!-- <link rel="stylesheet" type="text/css" href="style.css">  -->
+    <!-- WHY DOES THE STYLESHEET NOT WORK ??? -->
 
-<% if (words) { %>
-    <select name="wordsDropdown" id="wordsDropdown">
-    <% words.forEach(function(word){ %>
-        <option value="<%= word %>"><%= word %></option>
-    <% }) %>
-    </select>
-<% } %>
+    <style>
+        .result_label {
+            font-weight : bold;
+        }
+        .result_label_main {
+            padding-bottom:  1em;
+        }
+    </style>
+
+</head>
+<body>
+
+    <label for="search">Arabic > English</label>
+    <form action="http://localhost:3000/search/result">
+        <input type="text" name="searchedWord" id="search" autofocus>
+        <input type="submit" value="Yalla !">
+    </form>
+
+    <% if (words) { %>
+        <form action="http://localhost:3000/search/result">
+
+            <select name="searchedWord" id="wordsDropdown">
+
+                <% words.forEach(function(word){ %>
+                    <option value="<%= word %>"><%= word %></option>
+                <% }) %>
+
+            </select>
+
+            <input type="submit" value="Yalla !">
+
+        </form>
+    <% } %>
+
+    <p><a href="http://localhost:3000/all">See all the words we have !</a></p>
+
+</body>

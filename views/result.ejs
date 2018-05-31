@@ -1,15 +1,45 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Dictionary</title>
+    <!-- <link rel="stylesheet" type="text/css" href="style.css">  -->
+    <!-- WHY DOES THE STYLESHEET NOT WORK ??? -->
+
+    <style>
+        .result_label {
+            font-weight : bold;
+        }
+        .result_label_main {
+            padding-bottom:  1em;
+        }
+    </style>
+
+</head>
+<body>
+
 <h1>You searched for: <i><%= searchedWord %></i></h1>
 
-<h1>Results</h1>
 
-<ul>
     <% results.forEach(function(word){ %>
-        <li><%= word %></li>
+        <h2> Translation: <%= word['translation'] %> </h2><br>
+        <% if (word['category'] == 'noun') { %>
+            <span class="result_label"> Category: </span><%= word['category'] %> <br>
+            <span class="result_label"> Quantity: </span><%= word['nounDetails_quantity'] %> <br>
+            <span class="result_label"> Gender: </span><%= word['nounDetails_gender'] %> <br>
+            <span class="result_label"> Parent: </span><%= word['parent'] %> (<i><%= word['parentTypeLink'] %></i>) <br>
+            <span class="result_label"> Root: </span><%= word['root'] %> <br>
+            <%= word['extra'] %>
+        <% } else if (word['category'] == 'verb') { %>
+            <p>this is a verb</p>
+        <% } %>
     <% }) %>
-</ul>
 
 
 
 <% if (results == false) { %>
     <p>Sorry, nothing matched your search.</p>
 <% } %>
+</body>
+</html>
