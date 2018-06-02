@@ -1,0 +1,31 @@
+{
+  "_id": "templateVerbs",
+  "_rev": "5-d5c95416e0ed771159b380da209dd1d1",
+  "word": "",
+  "translation": [],
+  "type": "main word",
+  "category": "verb",
+  "root": null,
+  "parent": null,
+  "parentLinkType": null,
+  "verbDetails": [
+    {
+      "form": null
+    },
+    {
+      "person": null
+    },
+    {
+      "numerus": ""
+    },
+    {
+      "modus": ""
+    },
+    {
+      "genus": ""
+    },
+    {
+      "tempus": ""
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+<% if (word['category'] == 'noun') { %>
+    <% results.forEach(function(word){ %>
+        <span class="result_label"> Quantity: </span><%= word['nounDetails_quantity'] %> <br>
+        <span class="result_label"> Gender: </span><%= word['nounDetails_gender'] %> <br>
+    <% }) %>
+<% }  %>

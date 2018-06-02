@@ -1,0 +1,19 @@
+{
+  "_id": "templateNouns",
+  "_rev": "2-b90c601021ce0f96cc1c4747b25a66d1",
+  "word": "",
+  "translation": [],
+  "type": "",
+  "category": "",
+  "root": null,
+  "parent": null,
+  "parentLinkType": null,
+  "nounDetails": [
+    {
+      "quantity": ""
+    },
+    {
+      "gender": ""
+    }
+  ]
+}

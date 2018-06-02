@@ -1,0 +1,12 @@
+{
+  "_id": "template",
+  "_rev": "3-04e1af912137b9dfafcba0d39a5a7ab3",
+  "word": "",
+  "translation": [],
+  "type": "",
+  "category": "",
+  "root": null,
+  "parent": null,
+  "parentLinkType": null,
+  "xxxDetails": []
+}

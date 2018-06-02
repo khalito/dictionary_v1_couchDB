@@ -1,0 +1,10 @@
+<% if (word['category'] == 'verb') { %>
+    <% results.forEach(function(word){ %>
+        <span class="result_label"> Form: </span><%= word['verbDetails_form'] %> <br>
+        <span class="result_label"> Person: </span><%= word['verbDetails_person'] %> <br>
+        <span class="result_label"> Numerus: </span><%= word['verbDetails_numerus'] %> <br>
+        <span class="result_label"> Modus: </span><%= word['verbDetails_modus'] %> <br>
+        <span class="result_label"> Genus: </span><%= word['verbDetails_genus'] %> <br>
+        <span class="result_label"> Tempus: </span><%= word['verbDetails_tempus'] %> <br>
+    <% }) %>
+<% } %>

@@ -4,26 +4,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Dictionary</title>
-    <!-- <link rel="stylesheet" type="text/css" href="style.css">  -->
-    <!-- WHY DOES THE STYLESHEET NOT WORK ??? -->
-
-    <style>
-        .result_label {
-            font-weight : bold;
-        }
-        .result_label_main {
-            padding-bottom:  1em;
-        }
-    </style>
-
+    <link rel="stylesheet" type="text/css" href="style.css"> 
 </head>
 <body>
 
-    <label for="search">Arabic > English</label>
-    <form action="http://localhost:3000/search/result">
-        <input type="text" name="searchedWord" id="search" autofocus>
-        <input type="submit" value="Yalla !">
-    </form>
+    <%- include searchfield.ejs %>
 
     <% if (words) { %>
         <form action="http://localhost:3000/search/result">
