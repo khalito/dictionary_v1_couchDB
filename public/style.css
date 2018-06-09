@@ -1,11 +1,11 @@
+html * {
+    font-family: Helvetica, sans-serif;
+}
+
 .result_label {
     font-weight: bold;
 }
 
-.resut_label_main {
+.result_label_main {
     font-weight: bold;
-}
-
-h1 {
-    color: blueviolet;
 }

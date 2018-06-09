@@ -4,30 +4,56 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Dictionary</title>
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="../style.css">
 </head>
 <body>
 
 <%- include searchfield.ejs %>
 <%- include backToMain.ejs %>
-<h1>You searched for: <%= searchedWord %></h1>
 
-<% results.forEach(function(word){ %>
-    <span class="result_label_main"> Translation: <%= word['translation'] %> </span><br>
+<h1>You searched for: "<%= queryWord %>"</h1>
+
+<% results.forEach( function (word) { %>
+
+    <span class="result_label_main"> Translation:</span>
+    <% if (word['translation']) { %>
+        <ul>
+        <% word['translation'].forEach(function(item) { %>
+            <li><%= item %></li>
+        <% }) %>
+        </ul>        
+    <% } %>
+    
     <span class="result_label"> Category: </span><%= word['category'] %> <br>
-    <span class="result_label"> Parent: </span><%= word['parent'] %> (<i><%= word['parentLinkType'] %></i>) <br>
+    
+    <span class="result_label"> Parent: </span>
+        <a href="http://localhost:3000/search/result?queryId=<%= word['id'] %>&queryWord=<%= word['parent']%>"><%= word['parent'] %></a> 
+    
+        <% if (word['parentLinkType']) { %>
+            (<i><%= word['parentLinkType'] %></i>)
+        <% } %><br>
+
+    <span class="result_label"> Children:</span>
+    <% if (word['children']) { %>
+        <ul>
+        <% word['children'].forEach(function(child) { %>
+            <li><a href="http://localhost:3000/search/result?queryId=<%= word['id'] %>&queryWord=<%= child %>"><%= child %></a></li>
+        <% }) %>
+        </ul>        
+    <% } else { %>
+        </br>
+    <% } %>
+    
     <span class="result_label"> Root: </span><%= word['root'] %> <br>
+    
     <%- include result_noun.ejs%>
+    
     <%- include result_verb.ejs%>
 <% }) %>
-
-
-
 
 <% if (results == false) { %>
     <p>Sorry, nothing matched your search.</p>
 <% } %>
 
-<a href="">
 </body>
 </html>
